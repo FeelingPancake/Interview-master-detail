@@ -1,7 +1,6 @@
 package com.example.master_detail.service.detail;
 
 import com.example.master_detail.model.Detail;
-import com.example.master_detail.model.Master;
 
 import java.util.List;
 

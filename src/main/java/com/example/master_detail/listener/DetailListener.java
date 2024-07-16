@@ -4,13 +4,11 @@ import com.example.master_detail.model.Detail;
 import com.example.master_detail.model.Master;
 import com.example.master_detail.storage.DetailJpaRepository;
 import com.example.master_detail.storage.MasterJpaRepository;
-import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
