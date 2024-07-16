@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Masters</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Masters</h1>
+
+<!-- Таблица с мастерами -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Sum</th>
+        <th>Remark</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="master : ${masters}">
+        <td th:text="${master.id}">1</td>
+        <td th:text="${master.date}">2023-01-01T12:00</td>
+        <td th:text="${master.sum}">1000</td>
+        <td th:text="${master.remark}">Remark</td>
+        <td>
+            <button
+                    th:attr="onclick=|showUpdateForm(${master.id},'${master.date}','${master.remark}')|">Update</button>
+            <form th:action="@{'/master/delete/' + ${master.id}}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+            <form th:action="@{/details}" method="get" style="display:inline;">
+                <button type="submit">View Details</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Форма для создания мастера -->
+<h2>Create Master</h2>
+<form th:action="@{/master/create}" method="post">
+    <label for="date">Date:</label>
+    <input type="datetime-local" id="date" name="date" required>
+    <label for="remark">Remark:</label>
+    <input type="text" id="remark" name="remark" required>
+    <button type="submit">Create</button>
+</form>
+
+<!-- Форма для обновления мастера -->
+<div id="updateForm" style="display:none;">
+    <h2>Update Master</h2>
+    <form id="updateMasterForm" method="post">
+        <label for="updateDate">Date:</label>
+        <input type="datetime-local" id="updateDate" name="date" required>
+        <label for="updateRemark">Remark:</label>
+        <input type="text" id="updateRemark" name="remark" required>
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<script>
+    function showUpdateForm(id, date, remark) {
+        document.getElementById('updateDate').value = date;
+        document.getElementById('updateRemark').value = remark;
+        document.getElementById('updateForm').style.display = 'block';
+
+        document.getElementById('updateMasterForm').setAttribute('action', '/master/update/' + id);
+    }
+</script>
+</body>
+</html>

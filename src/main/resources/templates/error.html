@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Error</h1>
+
+<div th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
+
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+
+<a th:href="@{/master}">
+    <button>Back to Master</button>
+</a>
+<a th:href="@{/details}">
+    <button>Back to Detail</button>
+</a>
+</body>
+</html>

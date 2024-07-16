@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Details</h1>
+
+<!-- Таблица с деталями -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Master ID</th>
+        <th>Name</th>
+        <th>Sum</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="detail : ${details}">
+        <td th:text="${detail.id}">1</td>
+        <td th:text="${detail.master.id}">1</td>
+        <td th:text="${detail.name}">Name</td>
+        <td th:text="${detail.sum}">100</td>
+        <td>
+            <button th:attr="onclick=|showUpdateForm(${detail.id}, ${detail.master.id},'${detail.name}','${detail.sum}')|">Update</button>
+            <form th:action="@{'/details/delete/' + ${detail.id}}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/master}">
+    <button>Back to Master</button>
+</a>
+
+
+<!-- Форма для создания детали -->
+<h2>Create Detail</h2>
+<form th:action="@{/details/create}" method="post">
+    <label for="masterId">Master ID:</label>
+    <input type="number" id="masterId" name="masterId" required>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="sum">Sum:</label>
+    <input type="number" id="sum" name="sum" required>
+    <button type="submit">Create</button>
+</form>
+
+<!-- Форма для обновления детали -->
+<div id="updateForm" style="display:none;">
+    <h2>Update Detail</h2>
+    <form id="updateDetailForm" method="post">
+        <label for="updateMasterId">Master ID:</label>
+        <input type="number" id="updateMasterId" name="masterId" required>
+        <label for="updateName">Name:</label>
+        <input type="text" id="updateName" name="name" required>
+        <label for="updateSum">Sum:</label>
+        <input type="number" id="updateSum" name="sum" required>
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<script>
+    function showUpdateForm(id, masterId, name, sum) {
+        document.getElementById('updateMasterId').value = masterId;
+        document.getElementById('updateName').value = name;
+        document.getElementById('updateSum').value = sum;
+        document.getElementById('updateForm').style.display = 'block';
+
+        document.getElementById('updateDetailForm').setAttribute('action', '/details/update/' + id);
+    }
+</script>
+</body>
+</html>
